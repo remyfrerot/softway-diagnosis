@@ -17,9 +17,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import static com.softway.diagnosis.utils.TestUtils.generateHealthIndexesNotMultipleAndMultipleOf;
+import static com.softway.diagnosis.utils.TestUtils.generateHealthIndexesNotMultipleOf;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
@@ -38,9 +39,6 @@ class DiagnosePathologiesServiceTest {
     @Nested
     class TestDiagnosePathologiesByHealthIndex {
 
-        private static final int MIN_MULTIPLE = 2;
-        private static final int MAX_MULTIPLE = 600;
-
         @BeforeEach
         void setUp() {
             when(pathologyRepository.findAll()).thenReturn(List.of(new HeartDisease(), new Fracture()));
@@ -52,26 +50,6 @@ class DiagnosePathologiesServiceTest {
 
             private final HeartDisease expectedHeartDisease = new HeartDisease();
             private final Fracture expectedFracture = new Fracture();
-
-            private static Stream<Arguments> generateHealthIndexesNotMultipleAndMultipleOf(final int notDivisor, final int... divisors) {
-                final int productOfDivisors = IntStream.of(divisors)
-                        .reduce(1, (firstDivisor, secondDivisor) -> firstDivisor * secondDivisor);
-                return IntStream.rangeClosed(MIN_MULTIPLE, MAX_MULTIPLE)
-                        .filter(multiple -> multiple % productOfDivisors == 0 && isNotMultipleOf(multiple, notDivisor))
-                        .mapToObj(HealthIndex::new)
-                        .map(Arguments::of);
-            }
-
-            private static Stream<Arguments> generateHealthIndexesNotMultipleOf(final int... divisors) {
-                return IntStream.rangeClosed(MIN_MULTIPLE, MAX_MULTIPLE)
-                        .filter(multiple -> isNotMultipleOf(multiple, divisors))
-                        .mapToObj(HealthIndex::new)
-                        .map(Arguments::of);
-            }
-
-            private static boolean isNotMultipleOf(final int multiple, final int... divisors) {
-                return IntStream.of(divisors).noneMatch(divisor -> multiple % divisor == 0);
-            }
 
             @DisplayName("- 3, shall diagnose a heart disease")
             @ParameterizedTest

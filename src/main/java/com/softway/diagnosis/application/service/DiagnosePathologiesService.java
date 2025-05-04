@@ -6,7 +6,7 @@ import com.softway.diagnosis.application.port.output.persistence.PathologyReposi
 import com.softway.diagnosis.domain.pathology.HealthIndex;
 import com.softway.diagnosis.domain.pathology.Pathology;
 
-import java.util.Collection;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class DiagnosePathologiesService implements DiagnosePathologiesUseCase {
@@ -18,8 +18,8 @@ public class DiagnosePathologiesService implements DiagnosePathologiesUseCase {
     }
 
     @Override
-    public Collection<Pathology> diagnosePathologiesByHealthIndex(final HealthIndex healthIndex) throws PathologyNotFoundException {
-        final Collection<Pathology> diagnosedPathologies = pathologyRepository.findAll().stream()
+    public Set<Pathology> diagnosePathologiesByHealthIndex(final HealthIndex healthIndex) throws PathologyNotFoundException {
+        final Set<Pathology> diagnosedPathologies = pathologyRepository.findAll().stream()
                 .filter(pathology -> healthIndex.isMultipleOf(pathology.baseHealthIndex()))
                 .collect(Collectors.toUnmodifiableSet());
         if (diagnosedPathologies.isEmpty()) {

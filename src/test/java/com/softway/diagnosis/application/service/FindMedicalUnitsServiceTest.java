@@ -31,7 +31,7 @@ class FindMedicalUnitsServiceTest {
     @InjectMocks
     private FindMedicalUnitsService findMedicalUnitService;
 
-    @DisplayName("Find the medical units for the given pathologies")
+    @DisplayName("Find the medical units for given pathologies")
     @Nested
     class TestFindMedicalUnitsByPathologies {
 
