@@ -8,5 +8,5 @@ import java.util.Set;
 
 public interface FindMedicalUnitsUseCase {
 
-    Collection<MedicalUnit> findByPathologies(Set<Pathology> pathologies) throws NoSuchMedicalUnitForThisPathologyException;
+    Collection<MedicalUnit> findByPathologies(Set<Pathology> pathologies) throws NoSuchMedicalUnitForThesePathologiesException;
 }

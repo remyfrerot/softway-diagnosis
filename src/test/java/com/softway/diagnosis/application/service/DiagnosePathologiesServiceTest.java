@@ -5,6 +5,7 @@ import com.softway.diagnosis.application.port.output.persistence.PathologyReposi
 import com.softway.diagnosis.domain.pathology.Fracture;
 import com.softway.diagnosis.domain.pathology.HealthIndex;
 import com.softway.diagnosis.domain.pathology.HeartDisease;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,11 +16,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.when;
 
 @DisplayName("Tests for pathologies diagnosis")
 @ExtendWith(MockitoExtension.class)
@@ -37,6 +40,11 @@ class DiagnosePathologiesServiceTest {
 
         private static final int MIN_MULTIPLE = 2;
         private static final int MAX_MULTIPLE = 600;
+
+        @BeforeEach
+        void setUp() {
+            when(pathologyRepository.findAll()).thenReturn(List.of(new HeartDisease(), new Fracture()));
+        }
 
         @DisplayName("When health index is multiple of:")
         @Nested
