@@ -23,6 +23,16 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * The {@code DiagnosisConsoleApplication} class acts as a console-based application to assist in diagnosing medical
+ * conditions (pathologies) based on a given health index and identifying appropriate medical units capable of treating the diagnosed pathologies.
+ * <p>
+ * This class integrates multiple services and repositories to provide business functionality:
+ * - Diagnosing pathologies from health index values.
+ * - Finding medical units associated with diagnosed pathologies.
+ * <p>
+ * The class initializes an in-memory data storage with predefined pathologies and medical units.
+ */
 public class DiagnosisConsoleApplication {
 
     private final DiagnosePathologiesUseCase diagnosePathologiesUseCase;
